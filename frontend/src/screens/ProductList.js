@@ -32,6 +32,7 @@ function ProductList(props) {
     };
   }, [successDelete]);
 
+  // xóa sản phẩm
   const deleteHandler = (product) => {
     dispatch(deleteProduct(product._id));
   }
@@ -89,7 +90,7 @@ function ProductList(props) {
               <TableCell>{product.category}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.countInStock}</TableCell>
-              <TableCell>{product.rating}</TableCell>
+              <TableCell>{Math.round((product.rating + Number.EPSILON) * 10) / 10}</TableCell>
               <TableCell>
               <Link onClick={() => deleteHandler(product)} style={{color: "#203040", cursor:'pointer'}}><DeleteIcon/></Link>
               <Link href={"../product-update/"+product._id} style={{color: "#203040", cursor:'pointer'}}><CreateIcon/></Link>

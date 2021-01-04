@@ -55,6 +55,7 @@ export default function RegisterScreen(props) {
         };
     }, [userInfo]);
 
+    // đăng ký tài khoản
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(register(name, email, password));

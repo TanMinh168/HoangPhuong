@@ -18,7 +18,7 @@ function PlaceOrderScreen(props) {
   }
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxPrice = 0.1 * itemsPrice;
+  const taxPrice = Math.round((0.1 * itemsPrice + Number.EPSILON) * 100) / 100;
   const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
   const dispatch = useDispatch();
@@ -26,12 +26,11 @@ function PlaceOrderScreen(props) {
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
 
+  // tạo mới đơn hàng
   const placeOrderHandler = () => {
-    // create an order
     dispatch(createOrder({
-      userId: userInfo._id, orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
+      user: userInfo._id, orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
     }));
-    props.history.push("/");
   }
   useEffect(() => {
     if (success) {

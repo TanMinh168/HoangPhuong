@@ -16,10 +16,14 @@ function ProfileScreen(props) {
 
   const userSignin = useSelector(state => state.userSignin);
   const { userInfo } = userSignin;
+
+  // đăng xuất
   const handleLogout = () => {
     dispatch(logout());
     props.history.push("/signin");
   }
+
+  // cập nhật thông tin tài khoản
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(update({ userId: userInfo._id, name, email, password }))
@@ -51,8 +55,10 @@ function ProfileScreen(props) {
 
   const classes = useStyles();
 
-  return userInfo.isAdmin ? 
+  return (
   <div>
+    {userInfo.isAdmin ? 
+    <>
       <Button
         href="../products-list"
         variant="contained"
@@ -81,144 +87,80 @@ function ProfileScreen(props) {
       >
         View User List
       </Button>
+    </> 
+    : 
+    <></>
+    }
+      
       <div className="profile">
-    <div className="profile-info">
-      <div className="form">
-        <form onSubmit={submitHandler} >
-          <ul className="form-container">
-          <Typography component="h1" variant="h5">
-            User Profile
-          </Typography>
-          <br></br>
-            <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  value={name}
-                  label="Name"
-                  name="name"
-                  autoComplete="name"
-                  autoFocus
-                  onChange={(e) => setName(e.target.value)}
-                />
-            <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  value={email}
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-            <TextField
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  value={password}
-                  label="Password"
-                  name="password"
-                  autoComplete="password"
-                  autoFocus
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Upload
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
+      <div className="profile-info">
+        <div className="form">
+          <form onSubmit={submitHandler} >
+            <ul className="form-container">
+              <Typography component="h1" variant="h5">
+                User Profile
+              </Typography>
+            <br></br>
+              <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    value={name}
+                    label="Name"
+                    name="name"
+                    autoComplete="name"
+                    autoFocus
+                    onChange={(e) => setName(e.target.value)}
+                  />
+              <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    value={email}
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+              <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    value={password}
+                    label="Password"
+                    name="password"
+                    autoComplete="password"
+                    autoFocus
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Upload
+              </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
 
-          </ul>
-        </form>
+            </ul>
+          </form>
       </div>
     </div>
   </div>
   </div>
-     :
-  <div className="profile">
-    <div className="profile-info">
-      <div className="form">
-        <form onSubmit={submitHandler} >
-          <ul className="form-container">
-          <Typography component="h1" variant="h5">
-            User Profile
-          </Typography>
-          <br></br>
-            <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  value={name}
-                  label="Name"
-                  name="name"
-                  autoComplete="name"
-                  autoFocus
-                  onChange={(e) => setName(e.target.value)}
-                />
-            <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  value={email}
-                  label="Email"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-            <TextField
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  value={password}
-                  label="Password"
-                  name="password"
-                  autoComplete="password"
-                  autoFocus
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Upload
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
-
-          </ul>
-        </form>
-      </div>
-    </div>
-  </div>
+  );
 }
-
 export default ProfileScreen;

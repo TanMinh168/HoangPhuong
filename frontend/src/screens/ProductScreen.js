@@ -25,8 +25,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import axios from 'axios';
+import Input from '@material-ui/core/Input';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +61,7 @@ function ProductScreen (props) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState('');
     const [image, setImage] = useState('');
+    const [uploading, setUploading] = useState(false);
     const productDetails = useSelector((state) => state.productDetails);
     const { product, loading, error } = productDetails;
     const userSignin = useSelector((state) => state.userSignin);
@@ -84,6 +85,7 @@ function ProductScreen (props) {
         }
     }, []);
 
+    // gửi đánh giá về sản phẩm
     const submitHandler = (e) => {
         e.preventDefault();
         // dispatch actions
@@ -94,14 +96,36 @@ function ProductScreen (props) {
             comment: comment,
             image: image
           })
-        );
+        )
+        .then(window.location.reload())
     };
 
+    // thêm sản phẩm vào giỏ hàng
     const handleAddToCart = () => {
         props.history.push("/cart/" + props.match.params.id + "?qty=" + qty);
     }
 
-    if(product) console.log(product.reviews);
+    // đăng ảnh đánh giá
+    const uploadFileHandler = (e) => {
+        const file = e.target.files[0];
+        const bodyFormData = new FormData();
+        bodyFormData.append('image', file);
+        setUploading(true);
+        axios
+            .post('/api/uploads', bodyFormData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          })
+          .then((response) => {
+            setImage(response.data);
+            setUploading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setUploading(false);
+          });
+      };
 
    
     return <div>
@@ -219,7 +243,7 @@ function ProductScreen (props) {
                     <div className="products">
                     {product.reviews.map((review) => (
                         <li key={review._id}>
-                        <Card className={classes.root}>
+                        <Card className={classes.root} style = {{height: '30rem'}}>
                             <CardHeader
                                 avatar={
                                 <Avatar aria-label="" className={classes.avatar}>
@@ -229,12 +253,14 @@ function ProductScreen (props) {
                                 title={review.name}
                                 subheader={review.createdAt.substring(0, 10)}
                             />
-                             <CardMedia
+                            {/* <CardMedia
                                 className={classes.media}
                                 image={review.image}
                                 style={{width: '22rem'}}
 
-                            />
+                            /> */}
+                            <img style={{width: '22rem', height: '20rem'}} src={review.image} alt="product">
+                            </img>
                             <CardContent>
                                 <Typography color="textSecondary" component="p">
                                     {review.comment}
@@ -244,14 +270,6 @@ function ProductScreen (props) {
                                 </Typography>
                                 
                             </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                                </IconButton>
-                                <IconButton aria-label="share">
-                                <ShareIcon />
-                                </IconButton>
-                            </CardActions>
                         </Card>
                         </li>
                     ))}
@@ -315,8 +333,16 @@ function ProductScreen (props) {
                                         onChange={(e) => setImage(e.target.value)}
                                         margin="normal"
                                         style={{width:'90%'}}
-                                    >
-                                    </TextField>
+                                    />
+                                    <Input 
+                                        type="file" 
+                                        onChange={uploadFileHandler}
+                                        margin="normal"
+                                        fullWidth 
+                                        disableUnderline
+                                        colorSecondary
+                                        >
+                                    </Input>
                                     </Grid>
                                 </Grid>
                                 <Button

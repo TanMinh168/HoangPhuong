@@ -48,6 +48,7 @@ function ProductUpdateForm(props) {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
+  // gửi thay đổi thông tin sản phẩm
   function submitHandler(e) {
     e.preventDefault();
     dispatch(saveProduct({ _id: props.match.params.id, 
@@ -67,19 +68,20 @@ function ProductUpdateForm(props) {
     return () => {
         //
     }
-}, []);
+  }, []);
 
-const uploadFileHandler = (e) => {
-  const file = e.target.files[0];
-  const bodyFormData = new FormData();
-  bodyFormData.append('image', file);
-  setUploading(true);
-  axios
-    .post('/api/uploads', bodyFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+  // đăng tải ảnh
+  const uploadFileHandler = (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    setUploading(true);
+    axios
+      .post('/api/uploads', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
     .then((response) => {
       setImage(response.data);
       setUploading(false);
@@ -88,7 +90,7 @@ const uploadFileHandler = (e) => {
       console.log(err);
       setUploading(false);
     });
-};
+  };
 
   const classes = useStyles();
 

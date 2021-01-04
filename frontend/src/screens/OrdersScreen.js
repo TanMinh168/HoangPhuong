@@ -27,6 +27,7 @@ function OrdersScreen(props) {
     };
   }, [successDelete]);
 
+  // xóa đơn hàng
   const deleteHandler = (order) => {
     dispatch(deleteOrder(order._id));
   }
@@ -50,6 +51,7 @@ function OrdersScreen(props) {
             <tr>
               <TableCell>ID</TableCell>
               <TableCell>Created Date</TableCell>
+              <TableCell>User name</TableCell>
               <TableCell>Total Price</TableCell>
               <TableCell>Address</TableCell>
               <TableCell>City</TableCell>

@@ -55,6 +55,7 @@ function ProductCreateForm(props) {
   const { loading: loadingSave, success: successSave, error: errorSave } = productCreate;
   const dispatch = useDispatch();
 
+  // tạo mới sản phẩm
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveProduct({ name, price, image, brand, category, countInStock, description, rating, numReview }));
@@ -63,6 +64,7 @@ function ProductCreateForm(props) {
 
   const classes = useStyles();
 
+  // đăng tải ảnh sản phẩm
   const uploadFileHandler = (e) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
@@ -159,18 +161,17 @@ function ProductCreateForm(props) {
                 </Input>
               </Grid>
               <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="category"
-                  label="Category"
-                  name="category"
-                  autoComplete="category"
-                  autoFocus
-                  onChange={(e) => setCategory(e.target.value)}
-                />
+              <FormControl variant="outlined" style={{width:'100%', marginTop: '2rem'}} margin="normal">
+                <InputLabel id="rating">category</InputLabel>
+                  <Select
+                    id="category"
+                    label="category"
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <MenuItem value={"Marvel"}>Marvel</MenuItem>
+                    <MenuItem value={"Bear"}>Bear</MenuItem>
+                  </Select>
+              </FormControl>   
               </Grid>
             </Grid>
             <Grid container spacing={3}>

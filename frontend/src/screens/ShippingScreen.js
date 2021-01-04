@@ -42,6 +42,7 @@ export default function ShippingScreen(props) {
     const dispatch = useDispatch();
     const classes = useStyles();
 
+    // gửi thông tin giao hàng
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(saveShipping({address, city, postalCode, country}));
