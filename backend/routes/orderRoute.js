@@ -4,17 +4,17 @@ import { isAuth, isAdmin } from '../utils';
 
 const router = express.Router();
 
-router.get("/", isAuth, isAdmin, async (req, res) => {
+router.get("/", isAuth, isAdmin, async (req, res) => {  //getOrder()
   const orders = await Order.find({});
   res.send(orders);
 });
 
-router.get("/mine", isAuth, async (req, res) => {
+router.get("/mine", isAuth, async (req, res) => { // findOrderById()
   const orders = await Order.find({ userId: req.user._id });
   res.send(orders);
 });
 
-router.get("/:id", isAuth, isAdmin, async (req, res) => {
+router.get("/:id", isAuth, isAdmin, async (req, res) => { // findOrderByIdWithAdmin()
   const order = await Order.findOne({ _id: req.params.id });
   if (order) {
     res.send(order);
@@ -23,7 +23,7 @@ router.get("/:id", isAuth, isAdmin, async (req, res) => {
   }
 });
 
-router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+router.delete("/:id", isAuth, isAdmin, async (req, res) => { //deleteOrder()
   const order = await Order.findOne({ _id: req.params.id });
   if (order) {
     const deletedOrder = await order.remove();
@@ -33,7 +33,7 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
   }
 });
 
-router.post("/", isAuth, async (req, res) => {
+router.post("/", isAuth, async (req, res) => { // updateOrder()
   const order = new Order({
     userId: req.body.userId,
     orderItems: req.body.orderItems,
@@ -48,10 +48,10 @@ router.post("/", isAuth, async (req, res) => {
   if (newOrder) {
     return res.status(201).send({ message: "New Order Created", data: newOrder });
   }
-  return res.status(500).send({message: 'Error in Creating Order.'});
+  return res.status(500).send({ message: 'Error in Creating Order.' });
 });
 
-router.put("/:id/pay", isAuth, async (req, res) => {
+router.put("/:id/pay", isAuth, async (req, res) => { // payOrder()
   const order = await Order.findById(req.params.id);
   if (order) {
     order.isPaid = true;

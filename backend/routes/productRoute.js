@@ -5,7 +5,7 @@ import { isAdmin, isAuth } from '../utils';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res) => { // findProductByCategory()
   const category = req.query.category ? { category: req.query.category } : {};
   const searchKeyword = req.query.searchKeyword
     ? {
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => { // findProductById()
   const product = await Product.findOne({ _id: req.params.id });
   if (product) {
     res.send(product);
@@ -48,7 +48,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post("/", isAuth, isAdmin, async (req, res) => {
+router.post("/", isAuth, isAdmin, async (req, res) => { // addProduct()
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
@@ -68,7 +68,7 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
   return res.status(500).send({ message: ' Error in Creating Product.' });
 });
 
-router.put('/:id', isAuth, isAdmin, async (req, res) => {
+router.put('/:id', isAuth, isAdmin, async (req, res) => { // updateProduct()
   const product = await Product.findById({ _id: req.params.id });
   if (product) {
     product.name = req.body.name;
@@ -88,7 +88,7 @@ router.put('/:id', isAuth, isAdmin, async (req, res) => {
   return res.status(500).send({ message: ' Error in Updating Product.' });
 });
 
-router.delete('/:id', isAuth, isAdmin, async (req, res) => {
+router.delete('/:id', isAuth, isAdmin, async (req, res) => { //deleteProduct()
   const deletedProduct = await Product.findById(req.params.id);
   if (deletedProduct) {
     await deletedProduct.remove();
@@ -98,7 +98,7 @@ router.delete('/:id', isAuth, isAdmin, async (req, res) => {
   }
 });
 
-router.post('/:id/reviews', isAuth, async (req, res) => {
+router.post('/:id/reviews', isAuth, async (req, res) => { //reviewProduct()
   const product = await Product.findById(req.params.id);
   if (product) {
     const review = {
