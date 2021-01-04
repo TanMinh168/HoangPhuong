@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useSelector, useDispatch } from 'react-redux';
 import { detailsProduct, saveProduct } from '../actions/productActions';
-import { Grid } from '@material-ui/core';
+import { Grid, MenuItem, Select } from '@material-ui/core';
 import axios from 'axios';
 import Input from '@material-ui/core/Input';
 
@@ -48,164 +48,182 @@ function ProductUpdateForm(props) {
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
+  // gửi thay đổi thông tin sản phẩm
   function submitHandler(e) {
     e.preventDefault();
-    dispatch(saveProduct({ _id: props.match.params.id, 
-      name: name ? name : product.name, 
-      price: price ? price : product.price, 
-      image: image ? image : product.image, 
-      category: category ? category: product.category, 
-      brand: brand ? brand : product.brand, 
-      countInStock: countInStock ? countInStock : product.countInStock, 
-      rating: rating ? rating : product.rating, 
-      description: description ? description : product.description}));
+    dispatch(saveProduct({
+      _id: props.match.params.id,
+      name: name ? name : product.name,
+      price: price ? price : product.price,
+      image: image ? image : product.image,
+      category: category ? category : product.category,
+      brand: brand ? brand : product.brand,
+      countInStock: countInStock ? countInStock : product.countInStock,
+      rating: rating ? rating : product.rating,
+      description: description ? description : product.description
+    }));
     //props.history.push("/")
   }
 
   useEffect(() => {
     dispatch(detailsProduct(props.match.params.id));
     return () => {
-        //
+      //
     }
-}, []);
+  }, []);
 
-const uploadFileHandler = (e) => {
-  const file = e.target.files[0];
-  const bodyFormData = new FormData();
-  bodyFormData.append('image', file);
-  setUploading(true);
-  axios
-    .post('/api/uploads', bodyFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    .then((response) => {
-      setImage(response.data);
-      setUploading(false);
-    })
-    .catch((err) => {
-      console.log(err);
-      setUploading(false);
-    });
-};
+  // đăng tải ảnh
+  const uploadFileHandler = (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    setUploading(true);
+    axios
+      .post('/api/uploads', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        setImage(response.data);
+        setUploading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setUploading(false);
+      });
+  };
 
   const classes = useStyles();
 
   return (loading ? <div>Loading...</div> :
     error ? <div>{error}</div> :
-    <div className="content content-margined">
-        <Container component="main" style={{width: '40rem'}}>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Update Product
+      <div className="content content-margined">
+        <Container component="main" style={{ width: '40rem' }}>
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Update Product
           </Typography>
-          <form className={classes.form} onSubmit={submitHandler} noValidate autoComplete="off">
-            {loadingSave && <div>Loading...</div>}
-            {errorSave && <div>{errorSave}</div>}
-            <Grid container spacing={3}>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="Name"
-                  defaultValue={product.name}
-                  onChange={(e) => setName(e.target.value)}
-                  name="name" 
-                />
+            <form className={classes.form} onSubmit={submitHandler} noValidate autoComplete="off">
+              {loadingSave && <div>Loading...</div>}
+              {errorSave && <div>{errorSave}</div>}
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Name"
+                    defaultValue={product.name}
+                    onChange={(e) => setName(e.target.value)}
+                    name="name"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Price"
+                    name="price"
+                    defaultValue={product.price}
+                    autoComplete="price"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="Price"
-                  name="price"
-                  defaultValue={product.price}
-                  autoComplete="price"
-                  onChange={(e) => setPrice(e.target.value)}
-                />
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    label="Image"
+                    name="image"
+                    defaultValue={product.image}
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                  <Input
+                    type="file"
+                    onChange={uploadFileHandler}
+                    margin="normal"
+                    fullWidth
+                    disableUnderline
+                    colorSecondary
+                  >
+                  </Input>
+                </Grid>
+                <Grid item xs={6}>
+                  {/* <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="category"
+                    label="Category"
+                    name="category"
+                    defaultValue={product.category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  /> */}
+                  <Select
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="category"
+                    label="category"
+                    name="category"
+                    defaultValue={product.category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <MenuItem value={"Kit"}>Kit</MenuItem>
+                    <MenuItem value={"Accesories"}>Accesories</MenuItem>
+                  </Select>
+                </Grid>
               </Grid>
-            </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  label="Image"
-                  name="image"
-                  defaultValue={product.image}
-                  onChange={(e) => setImage(e.target.value)}
-                />
-                <Input 
-                  type="file" 
-                  onChange={uploadFileHandler}
-                  margin="normal"
-                  fullWidth 
-                  disableUnderline
-                  colorSecondary
-                >
-                </Input>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="brand"
+                    label="Brand"
+                    name="brand"
+                    defaultValue={product.brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="countInStock"
+                    label="Count In Stock"
+                    name="countInStock"
+                    defaultValue={product.countInStock}
+                    onChange={(e) => setCountInStock(e.target.value)}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="category"
-                  label="Category"
-                  name="category"
-                  defaultValue={product.category}
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-              </Grid>
-            </Grid>
-            <Grid container spacing={3}>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="brand"
-                  label="Brand"
-                  name="brand"
-                  defaultValue={product.brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="countInStock"
-                  label="Count In Stock"
-                  name="countInStock"
-                  defaultValue={product.countInStock}
-                  onChange={(e) => setCountInStock(e.target.value)}
+
+              <TextField
+                variant="outlined"
+                style={{ marginTop: '2rem' }}
+                required
+                fullWidth
+                id="description"
+                label="Description"
+                name="description"
+                defaultValue={product.description}
+                onChange={(e) => setDescription(e.target.value)}
               />
-              </Grid>
-            </Grid>
-            
-            <TextField
-              variant="outlined"
-              style={{marginTop: '2rem'}}
-              required
-              fullWidth
-              id="description"
-              label="Description"
-              name="description"
-              defaultValue={product.description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
               <Button
                 type="submit"
                 fullWidth
@@ -215,10 +233,10 @@ const uploadFileHandler = (e) => {
               >
                 Update
               </Button>
-          </form>
-        </div>
-      </Container>
-    </div>
+            </form>
+          </div>
+        </Container>
+      </div>
   );
 }
 

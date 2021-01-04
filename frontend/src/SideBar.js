@@ -173,7 +173,7 @@ export default function SideBar() {
                       <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
                     </Grid>
                     <Grid item xs={6}>
-                      <ListItemText><i class="fas fa-kickstarter-k    "></i></ListItemText>
+                      <ListItemText>Kit</ListItemText>
                     </Grid>
                   </Grid>
                 </Link>

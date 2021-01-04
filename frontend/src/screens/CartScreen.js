@@ -17,6 +17,8 @@ function CartScreen(props) {
   const productId = props.match.params.id;
   const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
   const dispatch = useDispatch();
+
+  // bỏ sản phẩm khỏi giỏ hàng
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
   }
@@ -26,6 +28,7 @@ function CartScreen(props) {
     }
   }, []);
 
+  // xác nhận thanh toán
   const checkoutHandler = () => {
     props.history.push("/signin?redirect=shipping");
   }

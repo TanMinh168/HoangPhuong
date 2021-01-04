@@ -32,6 +32,7 @@ function ProductList(props) {
     };
   }, [successDelete]);
 
+  // xóa sản phẩm
   const deleteHandler = (product) => {
     dispatch(deleteProduct(product._id));
   }
@@ -40,28 +41,28 @@ function ProductList(props) {
 
   return loading ? <div>Loading...</div> :
     <div className="content content-margined">
-        <div className="back-to-result">
-            <Link href="../profile" style={{cursor:'pointer', textDecoration: 'none'}}> 
-              <Grid container style={{width: '15rem'}}>
-                <Grid item xs={2}><ArrowBackIcon/></Grid>
-                <Grid item xs={10}>Back to profile</Grid>
-              </Grid>
-            </Link>
-        </div>
+      <div className="back-to-result">
+        <Link href="../profile" style={{ cursor: 'pointer', textDecoration: 'none' }}>
+          <Grid container style={{ width: '15rem' }}>
+            <Grid item xs={2}><ArrowBackIcon /></Grid>
+            <Grid item xs={10}>Back to profile</Grid>
+          </Grid>
+        </Link>
+      </div>
 
       <div className="product-header">
         <Grid container>
           <Grid item xs={8}>
-          <Typography component="h1" variant="h5">
-            Product list 
+            <Typography component="h1" variant="h5">
+              Product list
           </Typography>
           </Grid>
-          <Grid item xs={4} style={{paddingLeft: '12rem'}}>
-            <Link href="../product-create" style={{color: '#203040', textDecoration: 'none'}}>
-            <Grid container>
-              <Grid item xs={1}><AddBoxIcon/></Grid>
-              <Grid item xs={4} style={{paddingTop: '.1rem', fontSize: '1rem'}}>Add product</Grid>
-            </Grid>
+          <Grid item xs={4} style={{ paddingLeft: '12rem' }}>
+            <Link href="../product-create" style={{ color: '#203040', textDecoration: 'none' }}>
+              <Grid container>
+                <Grid item xs={1}><AddBoxIcon /></Grid>
+                <Grid item xs={4} style={{ paddingTop: '.1rem', fontSize: '1rem' }}>Add product</Grid>
+              </Grid>
             </Link>
           </Grid>
         </Grid>
@@ -89,10 +90,10 @@ function ProductList(props) {
               <TableCell>{product.category}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.countInStock}</TableCell>
-              <TableCell>{product.rating}</TableCell>
+              <TableCell>{Math.round((product.rating + Number.EPSILON) * 10) / 10}</TableCell>
               <TableCell>
-              <Link onClick={() => deleteHandler(product)} style={{color: "#203040", cursor:'pointer'}}><DeleteIcon/></Link>
-              <Link href={"../product-update/"+product._id} style={{color: "#203040", cursor:'pointer'}}><CreateIcon/></Link>
+                <Link onClick={() => (window.confirm('Are you sure you wish to delete this item?')) ? deleteHandler(product) : {}} style={{ color: "#203040", cursor: 'pointer' }}><DeleteIcon /></Link>
+                <Link href={"../product-update/" + product._id} style={{ color: "#203040", cursor: 'pointer' }}><CreateIcon /></Link>
               </TableCell>
             </TableRow>))}
           </TableBody>

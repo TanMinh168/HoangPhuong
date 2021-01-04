@@ -24,10 +24,14 @@ function HomeScreen(props) {
     dispatch(listProducts(category));
   }, [category]);
 
+
+  // tìm kiếm sản phẩm theo từ khóa
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(listProducts(category, searchKeyword, sortOrder));
   };
+
+  // sắp xếp sản phẩm theo giá
   const sortHandler = (e) => {
     setSortOrder(e.target.value);
     dispatch(listProducts(category, searchKeyword, sortOrder));

@@ -20,7 +20,7 @@ function PaymentScreen(props) {
   }));
   const classes = useStyles();
 
-
+  // xác nhận phương thức thanh toán
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePayment({ paymentMethod }));
