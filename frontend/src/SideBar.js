@@ -167,25 +167,25 @@ export default function SideBar() {
           {userInfo ?
             <List>
               <ListItem button>
-                <Link to="../category/Bear" style={{ textDecoration: 'none', color: '#203040' }}>
+                <Link to="../category/Kit" style={{ textDecoration: 'none', color: '#203040' }}>
                   <Grid container>
                     <Grid item xs={6}>
                       <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
                     </Grid>
                     <Grid item xs={6}>
-                      <ListItemText>Bear</ListItemText>
+                      <ListItemText><i class="fas fa-kickstarter-k    "></i></ListItemText>
                     </Grid>
                   </Grid>
                 </Link>
               </ListItem>
               <ListItem button>
-                <Link to="../category/Marvel" style={{ textDecoration: 'none', color: '#203040' }}>
+                <Link to="../category/Accessories" style={{ textDecoration: 'none', color: '#203040' }}>
                   <Grid container>
                     <Grid item xs={6}>
                       <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
                     </Grid>
                     <Grid item xs={6}>
-                      <ListItemText>Marvel</ListItemText>
+                      <ListItemText>Accessories</ListItemText>
                     </Grid>
                   </Grid>
                 </Link>
