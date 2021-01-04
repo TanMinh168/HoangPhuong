@@ -34,13 +34,13 @@ function OrdersScreen(props) {
   return loading ? <div>Loading...</div> :
     <div className="content content-margined">
       <div className="back-to-result">
-            <Link to="../profile" style={{cursor:'pointer', textDecoration: 'none'}}> 
-              <Grid container style={{width: '15rem'}}>
-                <Grid item xs={2}><ArrowBackIcon/></Grid>
-                <Grid item xs={10}>Back to profile</Grid>
-              </Grid>
-            </Link>
-        </div>
+        <Link to="../profile" style={{ cursor: 'pointer', textDecoration: 'none' }}>
+          <Grid container style={{ width: '15rem' }}>
+            <Grid item xs={2}><ArrowBackIcon /></Grid>
+            <Grid item xs={10}>Back to profile</Grid>
+          </Grid>
+        </Link>
+      </div>
       <div className="order-header">
         <h3>Orders</h3>
       </div>
@@ -68,7 +68,7 @@ function OrdersScreen(props) {
               <TableCell>{order.shipping.city}</TableCell>
               <TableCell>{order.shipping.country}</TableCell>
               <TableCell>
-                <Link onClick={() => deleteHandler(order)} style={{color: "#203040", cursor:'pointer'}}><DeleteIcon/></Link>
+                <Link onClick={() => (window.confirm('Are you sure you wish to delete this item?')) ? deleteHandler(order) : {}} style={{ color: "#203040", cursor: 'pointer' }}><DeleteIcon /></Link>
               </TableCell>
             </tr>))}
           </TableBody>

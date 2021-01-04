@@ -161,17 +161,17 @@ function ProductCreateForm(props) {
                 </Input>
               </Grid>
               <Grid item xs={6}>
-              <FormControl variant="outlined" style={{width:'100%', marginTop: '2rem'}} margin="normal">
-                <InputLabel id="rating">category</InputLabel>
+                <FormControl variant="outlined" style={{ width: '100%', marginTop: '2rem' }} margin="normal">
+                  <InputLabel id="rating">category</InputLabel>
                   <Select
                     id="category"
                     label="category"
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <MenuItem value={"Marvel"}>Marvel</MenuItem>
-                    <MenuItem value={"Bear"}>Bear</MenuItem>
+                    <MenuItem value={"Kit"}>Kit</MenuItem>
+                    <MenuItem value={"Accesories"}>Accesories</MenuItem>
                   </Select>
-              </FormControl>   
+                </FormControl>
               </Grid>
             </Grid>
             <Grid container spacing={3}>
