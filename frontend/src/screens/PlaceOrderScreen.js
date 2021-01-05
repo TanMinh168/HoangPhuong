@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CheckOutSteps from '../components/CheckOutSteps';
 import { createOrder } from '../actions/orderActions';
 import { detailsProduct, saveProduct } from '../actions/productActions';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { Typography } from '@material-ui/core';
 function PlaceOrderScreen(props) {
 
   const cart = useSelector(state => state.cart);
@@ -48,10 +54,24 @@ function PlaceOrderScreen(props) {
   }
   useEffect(() => {
     if (success) {
-      // props.history.push("/order/" + order._id);
+      handleClickOpen();
     }
 
   }, [success]);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const continueShopping = () => {
+    props.history.push("../");
+  };
 
   return <div>
     <CheckOutSteps step1 step2 step3 step4 ></CheckOutSteps>
@@ -152,6 +172,32 @@ function PlaceOrderScreen(props) {
       </div>
 
     </div>
+
+    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Your order is created successfully"}</DialogTitle>
+        <DialogContent>
+          <Typography gutterBottom>
+          Your order will be delivered within 5-8 days. Please pay attention to the phone when a delivery duration arrives and check the order items before paying. 
+          </Typography>
+          <Typography gutterBottom>
+          If you have any comment, please contact us via email: tanminhtran168@gmail.com. Wish you a good day!
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Review order
+          </Button>
+          <Button onClick={continueShopping} color="primary" autoFocus>
+            Continue shopping
+          </Button>
+        </DialogActions>
+      </Dialog>
+
   </div>
 
 }
