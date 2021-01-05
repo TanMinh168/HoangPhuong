@@ -102,7 +102,7 @@ function ProductCreateForm(props) {
           <Typography component="h1" variant="h5">
             Create Product
           </Typography>
-          <form className={classes.form} onSubmit={submitHandler} noValidate>
+          <form className={classes.form} onSubmit={submitHandler}>
             {loadingSave && <div>Loading...</div>}
             {errorSave && <div>{errorSave}</div>}
             <Grid container spacing={3}>
@@ -139,37 +139,30 @@ function ProductCreateForm(props) {
             </Grid>
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  label="Image"
-                  name="image"
-                  autoComplete="image"
-                  autoFocus
-                  onChange={(e) => setImage(e.target.value)}
-                />
                 <Input
+                  label="image"
                   type="file"
                   onChange={uploadFileHandler}
                   margin="normal"
                   fullWidth
                   disableUnderline
-                  colorSecondary
+                  colorPrimary
+                  style ={{paddingTop: '3rem', paddingLeft: '2rem'}}
                 >
                 </Input>
               </Grid>
               <Grid item xs={6}>
                 <FormControl variant="outlined" style={{ width: '100%', marginTop: '2rem' }} margin="normal">
-                  <InputLabel id="rating">category</InputLabel>
+                  <InputLabel id="category">category</InputLabel>
                   <Select
                     id="category"
                     label="category"
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     <MenuItem value={"Kit"}>Kit</MenuItem>
-                    <MenuItem value={"Accesories"}>Accesories</MenuItem>
+                    <MenuItem value={"Accessories"}>Accessories</MenuItem>
+                    <MenuItem value={"Ball"}>Ball</MenuItem>
+                    <MenuItem value={"Poster"}>Poster</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

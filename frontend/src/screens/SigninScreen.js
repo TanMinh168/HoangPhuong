@@ -41,7 +41,6 @@ function SigninScreen(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [renderAlert, setRenderAlert] = useState(false);
   const userSignin = useSelector(state => state.userSignin);
   const { loading, userInfo, error } = userSignin;
   const dispatch = useDispatch();
@@ -50,9 +49,7 @@ function SigninScreen(props) {
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
-    } else if (error) {
-      setRenderAlert(true)
-    }
+    } 
   }, [userSignin]);
 
   const submitHandler = (e) => {
@@ -73,15 +70,13 @@ function SigninScreen(props) {
           Sign in
         </Typography>
         {
-          renderAlert ?
+          error ?
             <Alert severity="error">
-              {!email ? "Please insert email" :
-                !password ? "Please insert password" :
-                  "Either your email or password is incorrect"}
+              {"Either your email or password is incorrect"}
             </Alert> : null
         }
 
-        <form className={classes.form} onSubmit={submitHandler} noValidate>
+        <form className={classes.form} onSubmit={submitHandler}>
           <TextField
             variant="outlined"
             margin="normal"

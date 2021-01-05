@@ -137,15 +137,6 @@ function ProductUpdateForm(props) {
               </Grid>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    fullWidth
-                    label="Image"
-                    name="image"
-                    defaultValue={product.image}
-                    onChange={(e) => setImage(e.target.value)}
-                  />
                   <Input
                     type="file"
                     onChange={uploadFileHandler}
@@ -153,21 +144,11 @@ function ProductUpdateForm(props) {
                     fullWidth
                     disableUnderline
                     colorSecondary
+                    style ={{paddingTop: '1rem', paddingLeft: '2rem'}}
                   >
                   </Input>
                 </Grid>
                 <Grid item xs={6}>
-                  {/* <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="category"
-                    label="Category"
-                    name="category"
-                    defaultValue={product.category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  /> */}
                   <Select
                     variant="outlined"
                     margin="normal"
@@ -180,7 +161,9 @@ function ProductUpdateForm(props) {
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     <MenuItem value={"Kit"}>Kit</MenuItem>
-                    <MenuItem value={"Accesories"}>Accesories</MenuItem>
+                    <MenuItem value={"Accessories"}>Accessories</MenuItem>
+                    <MenuItem value={"Ball"}>Ball</MenuItem>
+                    <MenuItem value={"Poster"}>Poster</MenuItem>
                   </Select>
                 </Grid>
               </Grid>
