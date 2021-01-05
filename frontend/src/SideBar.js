@@ -101,10 +101,12 @@ export default function SideBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  // mở sidebar
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
+  // đóng sidebar
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -164,7 +166,6 @@ export default function SideBar() {
             </IconButton>
           </div>
           <Divider />
-          {userInfo ?
             <List>
               <ListItem button>
                 <Link to="../category/Kit" style={{ textDecoration: 'none', color: '#203040' }}>
@@ -173,7 +174,7 @@ export default function SideBar() {
                       <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
                     </Grid>
                     <Grid item xs={6}>
-                      <ListItemText>Kit</ListItemText>
+                      <ListItemText style={{ paddingLeft: '2rem' }}>Kit</ListItemText>
                     </Grid>
                   </Grid>
                 </Link>
@@ -185,14 +186,38 @@ export default function SideBar() {
                       <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
                     </Grid>
                     <Grid item xs={6}>
-                      <ListItemText>Accessories</ListItemText>
+                      <ListItemText style={{ paddingLeft: '0.5rem' }}>Accessories</ListItemText>
                     </Grid>
                   </Grid>
                 </Link>
               </ListItem>
+              <ListItem button>
+                <Link to="../category/Ball" style={{ textDecoration: 'none', color: '#203040' }}>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <ListItemText style={{ paddingLeft: '1.8rem' }}>Ball</ListItemText>
+                    </Grid>
+                  </Grid>
+                </Link>
+              </ListItem>
+              <ListItem button>
+                <Link to="../category/Poster" style={{ textDecoration: 'none', color: '#203040' }}>
+                  <Grid container>
+                    <Grid item xs={6}>
+                      <ListItemIcon style={{ paddingTop: '.2rem' }}><ChildCareIcon /></ListItemIcon>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <ListItemText style={{ paddingLeft: '1.4rem' }}>Poster</ListItemText>
+                    </Grid>
+                  </Grid>
+                </Link>
+              </ListItem>
+              
+              
             </List>
-            : <div></div>
-          }
         </Drawer>
         <main className={clsx(classes.content, { [classes.contentShift]: open, })}>
           <div className={classes.drawerHeader} />

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CheckOutSteps from '../components/CheckOutSteps';
 import { createOrder } from '../actions/orderActions';
+import { detailsProduct, saveProduct } from '../actions/productActions';
 import Button from '@material-ui/core/Button';
 function PlaceOrderScreen(props) {
 
@@ -29,12 +30,25 @@ function PlaceOrderScreen(props) {
   // tạo mới đơn hàng
   const placeOrderHandler = () => {
     dispatch(createOrder({
-      user: userInfo._id, orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
+      userId: userInfo._id, orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
     }));
+    cartItems.map((item) => {
+      dispatch(saveProduct({
+        _id: item.product,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        category: item.category,
+        brand: item.brand,
+        countInStock: item.countInStock - item.qty,
+        rating: item.rating,
+        description: item.description
+      }));
+    })
   }
   useEffect(() => {
     if (success) {
-      props.history.push("/order/" + order._id);
+      // props.history.push("/order/" + order._id);
     }
 
   }, [success]);
@@ -110,7 +124,7 @@ function PlaceOrderScreen(props) {
                 onClick={placeOrderHandler}
                 disabled={cartItems.length === 0}
                 fullWidth
-                href="../"
+                // href="../"
             >
             Place Order
             </Button>
