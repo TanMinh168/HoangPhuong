@@ -253,12 +253,6 @@ function ProductScreen (props) {
                                 title={review.name}
                                 subheader={review.createdAt.substring(0, 10)}
                             />
-                            {/* <CardMedia
-                                className={classes.media}
-                                image={review.image}
-                                style={{width: '22rem'}}
-
-                            /> */}
                             <img style={{width: '22rem', height: '20rem'}} src={review.image} alt="product">
                             </img>
                             <CardContent>

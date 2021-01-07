@@ -139,6 +139,14 @@ function ProductCreateForm(props) {
             </Grid>
             <Grid container spacing={3}>
               <Grid item xs={6}>
+                <TextField
+                  variant="outlined" 
+                  name="image"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  margin="normal"
+                  style={{width:'100%'}}
+                />
                 <Input
                   label="image"
                   type="file"
@@ -147,16 +155,17 @@ function ProductCreateForm(props) {
                   fullWidth
                   disableUnderline
                   colorPrimary
-                  style ={{paddingTop: '3rem', paddingLeft: '2rem'}}
+                  style ={{ paddingLeft: '2rem'}}
                 >
                 </Input>
               </Grid>
               <Grid item xs={6}>
-                <FormControl variant="outlined" style={{ width: '100%', marginTop: '2rem' }} margin="normal">
-                  <InputLabel id="category">category</InputLabel>
+                <FormControl variant="outlined" style={{ width: '100%' }} margin="normal">
+                  <InputLabel id="category">Category</InputLabel>
                   <Select
                     id="category"
                     label="category"
+                    style ={{marginTop: '0rem'}}
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     <MenuItem value={"Kit"}>Kit</MenuItem>

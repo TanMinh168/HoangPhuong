@@ -23,10 +23,19 @@ function ProfileScreen(props) {
     props.history.push("/signin");
   }
 
+  const handleMyOrders = () => {
+    dispatch(logout());
+    props.history.push("/my-orders-list");
+  }
+
   // cập nhật thông tin tài khoản
   const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(update({ userId: userInfo._id, name, email, password }))
+    if (window.confirm('Are you sure to change your profile information?')) {
+      e.preventDefault();
+      dispatch(update({ userId: userInfo._id, name, email, password }))
+      .then(dispatch(logout()))
+      props.history.push("/signin");
+    }
   }
   const userUpdate = useSelector(state => state.userUpdate);
   const { loading, success, error } = userUpdate;
@@ -91,7 +100,16 @@ function ProfileScreen(props) {
     : 
     <></>
     }
-      
+    <br></br>
+    <br></br>
+    <Button
+        href="../my-orders-list"
+        variant="contained"
+        color="primary"
+        style={{width: '15rem'}}
+      >
+        View My Order List
+      </Button>
       <div className="profile">
       <div className="profile-info">
         <div className="form">

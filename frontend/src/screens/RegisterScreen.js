@@ -14,6 +14,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,6 +43,7 @@ export default function RegisterScreen(props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [open, setOpen] = useState(false);
     const userRegister = useSelector(state => state.userRegister);
     const { loading, userInfo, error } = userRegister;
     const dispatch = useDispatch();
@@ -48,18 +53,28 @@ export default function RegisterScreen(props) {
 
     useEffect(() => {
         if (userInfo) {
-          props.history.push(redirect);
+          // props.history.push(redirect);
+          handleClickOpen();
         }
-        return () => {
-          //
-        };
     }, [userInfo]);
+
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     // đăng ký tài khoản
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(register(name, email, password));
+        dispatch(register(name, email, password))
     }
+    const continueSignIn = () => {
+      props.history.push("/signin");
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -123,6 +138,27 @@ export default function RegisterScreen(props) {
             >
                 Sign Up
             </Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Your account is created successfully"}</DialogTitle>
+              <DialogContent>
+                <Typography gutterBottom>
+                Thank for accompanying us. Wish you a good day!
+                </Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Close
+                </Button>
+                <Button onClick={continueSignIn} color="primary" autoFocus>
+                  Sign in
+                </Button>
+              </DialogActions>
+            </Dialog>
             <Grid container justify="flex-end">
                 <Grid item>
                 <Link href={redirect === "/" ? "signin" : "signin?redirect=" + redirect}>

@@ -92,7 +92,7 @@ function ProductList(props) {
               <TableCell>{product.countInStock}</TableCell>
               <TableCell>{Math.round((product.rating + Number.EPSILON) * 10) / 10}</TableCell>
               <TableCell>
-                <Link onClick={() => (window.confirm('Are you sure you wish to delete this item?')) ? deleteHandler(product) : {}} style={{ color: "#203040", cursor: 'pointer' }}><DeleteIcon /></Link>
+                <Link onClick={() => (window.confirm('Are you sure to delete this item?')) ? deleteHandler(product) : {}} style={{ color: "#203040", cursor: 'pointer' }}><DeleteIcon /></Link>
                 <Link href={"../product-update/" + product._id} style={{ color: "#203040", cursor: 'pointer' }}><CreateIcon /></Link>
               </TableCell>
             </TableRow>))}

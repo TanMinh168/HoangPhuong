@@ -10,6 +10,8 @@ import { detailsProduct, saveProduct } from '../actions/productActions';
 import { Grid, MenuItem, Select } from '@material-ui/core';
 import axios from 'axios';
 import Input from '@material-ui/core/Input';
+import Link from '@material-ui/core/Link';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -99,6 +101,14 @@ function ProductUpdateForm(props) {
   return (loading ? <div>Loading...</div> :
     error ? <div>{error}</div> :
       <div className="content content-margined">
+        <div className="back-to-result">
+          <Link href="../products-list" style={{ cursor: 'pointer', textDecoration: 'none' }}>
+            <Grid container style={{ width: '15rem' }}>
+              <Grid item xs={2}><ArrowBackIcon /></Grid>
+              <Grid item xs={10}>Back to Product list</Grid>
+            </Grid>
+          </Link>
+        </div>
         <Container component="main" style={{ width: '40rem' }}>
           <CssBaseline />
           <div className={classes.paper}>
@@ -137,6 +147,14 @@ function ProductUpdateForm(props) {
               </Grid>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
+                  <TextField
+                    variant="outlined" 
+                    name="image"
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                    margin="normal"
+                    style={{width:'100%'}}
+                  />
                   <Input
                     type="file"
                     onChange={uploadFileHandler}
@@ -144,7 +162,7 @@ function ProductUpdateForm(props) {
                     fullWidth
                     disableUnderline
                     colorSecondary
-                    style ={{paddingTop: '1rem', paddingLeft: '2rem'}}
+                    style ={{ paddingLeft: '2rem'}}
                   >
                   </Input>
                 </Grid>
@@ -159,6 +177,7 @@ function ProductUpdateForm(props) {
                     name="category"
                     defaultValue={product.category}
                     onChange={(e) => setCategory(e.target.value)}
+                    style ={{ marginTop: '1rem'}}
                   >
                     <MenuItem value={"Kit"}>Kit</MenuItem>
                     <MenuItem value={"Accessories"}>Accessories</MenuItem>

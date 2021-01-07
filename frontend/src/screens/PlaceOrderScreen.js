@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Typography } from '@material-ui/core';
 function PlaceOrderScreen(props) {
@@ -185,7 +184,7 @@ function PlaceOrderScreen(props) {
           Your order will be delivered within 5-8 days. Please pay attention to the phone when a delivery duration arrives and check the order items before paying. 
           </Typography>
           <Typography gutterBottom>
-          If you have any comment, please contact us via email: tanminhtran168@gmail.com. Wish you a good day!
+          If you have any issue, please contact us via email: tanminhtran168@gmail.com. Wish you a good day!
           </Typography>
         </DialogContent>
         <DialogActions>

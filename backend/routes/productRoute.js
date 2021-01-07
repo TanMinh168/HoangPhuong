@@ -68,7 +68,7 @@ router.post("/", isAuth, isAdmin, async (req, res) => { // addProduct()
   return res.status(500).send({ message: ' Error in Creating Product.' });
 });
 
-router.put('/:id', isAuth, isAdmin, async (req, res) => { // updateProduct()
+router.put('/:id', isAuth, async (req, res) => { // updateProduct()
   const product = await Product.findById({ _id: req.params.id });
   if (product) {
     product.name = req.body.name;

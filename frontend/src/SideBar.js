@@ -33,6 +33,7 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import OrdersScreen from './screens/OrdersScreen';
+import MyOrdersScreen from './screens/MyOrdersScreen';
 import ProductCreateForm from './screens/ProductCreateForm';
 import ProductUpdateForm from './screens/ProductUpdateForm';
 import UserList from './screens/UsersScreen';
@@ -235,6 +236,7 @@ export default function SideBar() {
             <Route path="/placeorder" component={PlaceOrderScreen} />
             <Route path="/profile" component={ProfileScreen} />
             <Route path="/orders-list" component={OrdersScreen} />
+            <Route path="/my-orders-list" component={MyOrdersScreen} />
             <Route path="/category/:id" component={HomeScreen} />
             <Route path="/users" component={UserList} />
           </div>
